@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""safe_first_element
+"""safely_get_value
 """
 from typing import Mapping, Any, Union, TypeVar
 
