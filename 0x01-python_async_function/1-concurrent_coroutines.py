@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 """ 1-concurrent_coroutines.py """
 import asyncio
-import importlib
 from typing import List
 
-wait_random = importlib.import_module("0_basic_async_syntax").wait_random
+wait_random = __import__('0-basic_async_syntax').wait_random
 
 async def wait_n(n: int, max_delay: int) -> List[float]:
 	"""_summary_
