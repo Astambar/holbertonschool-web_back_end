@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """ 2-measure_runtime.py """
-from typing import List
+import typing
+List = typing.List
 async_generator = __import__('0-async_generator').async_generator
 
 
