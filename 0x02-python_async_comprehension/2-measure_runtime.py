@@ -5,6 +5,8 @@ import asyncio
 async_comprehension = __import__('1-async_comprehension').async_comprehension
 perf_counter = time.perf_counter
 gather = asyncio.gather
+
+
 async def measure_runtime() -> float:
     """_summary_
 
