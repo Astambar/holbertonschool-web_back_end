@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-import csv
-from typing import List, Dict
-"""_summary_
-
-Returns:
-    _type_: _description_
 """
+Deletion-resilient hypermedia pagination
+"""
+
+import csv
+import math
+from typing import List, Dict
 
 
 class Server:
@@ -33,31 +33,24 @@ class Server:
         """
         if self.__indexed_dataset is None:
             dataset = self.dataset()
-            truncated_dataset = dataset[:1000]
             self.__indexed_dataset = {
                 i: dataset[i] for i in range(len(dataset))
             }
         return self.__indexed_dataset
 
     def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
-        indexed_dataset = self.indexed_dataset()
-        nb_items = len(indexed_dataset)
-        assert 0 <= index < nb_items, f"Index out of range: {index}/{nb_items}"
+        """ get_hyper_index function """
+        dataset = self.indexed_dataset()
         if index is None:
             index = 0
-
-        start = index
-        end = min(index + page_size, nb_items)
-
-        while True:
-            data = [indexed_dataset[i] for i in range(start, end)]
-            if data:
-                break
-            start += 1
-            end = min(end + page_size, nb_items)
-
-        next_index = end
-        return {'index': index,
-                'data': data,
-                'page_size': page_size,
-                'next_index': next_index}
+        assert (index <= len(dataset))
+        next_index = min(len(dataset), index + page_size)
+        returned_data = [dataset[i] for i in range(index, next_index)]
+        return {
+            'index': index,
+            'data': returned_data,
+            'page_size': page_size,
+            'next_index': next_index,
+            'prev_index': index - page_size if index >= page_size else None,
+            'total_items': len(dataset),
+        }
