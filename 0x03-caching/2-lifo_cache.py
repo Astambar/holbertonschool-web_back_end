@@ -12,16 +12,14 @@ class LIFOCache(BaseCaching):
     def put(self, key, item):
         """ put function """
         if key and item:
-            if key in list(self.cache_data.keys()):
+            if key in self.cache_data:
                 del self.cache_data[key]
-            if (len(self.cache_data.keys()) == self.MAX_ITEMS):
-                k = list(self.cache_data.keys()).pop()
-                del self.cache_data[k]
-                print("DISCARD: {}".format(k))
+            if len(self.cache_data) == self.MAX_ITEMS:
+                oldest_key = next(iter(self.cache_data))
+                self.cache_data.pop(oldest_key)
+                print("DISCARD: {}".format(oldest_key))
             self.cache_data[key] = item
 
     def get(self, key):
         """ get function """
-        if key in self.cache_data:
-            return self.cache_data[key]
-        return None
+        return self.cache_data.get(key)
