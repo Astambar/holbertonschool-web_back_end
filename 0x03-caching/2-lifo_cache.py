@@ -2,6 +2,7 @@
 """ 2-lifo_cache.py """
 from base_caching import BaseCaching
 
+
 class LIFOCache(BaseCaching):
     """ LIFOCache """
 
@@ -15,13 +16,13 @@ class LIFOCache(BaseCaching):
 
         if key in self.cache_data:
             del self.cache_data[key]
-        
+
         keys = list(self.cache_data.keys())
         if len(keys) == self.MAX_ITEMS:
             removed_key = keys.pop()
             del self.cache_data[removed_key]
             print("DISCARD: {}".format(removed_key))
-        
+
         self.cache_data[key] = item
 
     def get(self, key):
