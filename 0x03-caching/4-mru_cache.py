@@ -7,29 +7,34 @@ BaseCaching = __import__('base_caching').BaseCaching
 
 
 class MRUCache(BaseCaching):
-    """ MRUCache """
+    """ Most Recently Used Cache Class """
 
     def __init__(self):
         super().__init__()
-        self.mru_order = OrderedDict()
+        self.recently_used_keys = OrderedDict()
 
     def put(self, key, item):
-        """ put function """
+        """ Add item to the cache with a specific key """
         if not key or not item:
             return
+
         self.cache_data[key] = item
-        self.mru_order[key] = item
+        self.recently_used_keys[key] = item
+
         if len(self.cache_data) > BaseCaching.MAX_ITEMS:
-            item_discarded = next(iter(self.mru_order))
-            del self.cache_data[item_discarded]
-            print("DISCARD:", item_discarded)
-        if len(self.mru_order) > BaseCaching.MAX_ITEMS:
-            self.mru_order.popitem(last=False)
-        self.mru_order.move_to_end(key, False)
+            discarded_key = next(iter(self.recently_used_keys))
+            del self.cache_data[discarded_key]
+            print("DISCARD:", discarded_key)
+
+        if len(self.recently_used_keys) > BaseCaching.MAX_ITEMS:
+            self.recently_used_keys.popitem(last=False)
+
+        self.recently_used_keys.move_to_end(key, False)
 
     def get(self, key):
-        """ get function """
+        """ Retrieve item from the cache with a specific key """
         if key in self.cache_data:
-            self.mru_order.move_to_end(key, False)
+            self.recently_used_keys.move_to_end(key, False)
             return self.cache_data[key]
+
         return None
