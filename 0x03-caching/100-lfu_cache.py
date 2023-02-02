@@ -1,28 +1,55 @@
 #!/usr/bin/env python3
+""" 100-lfu_cache.py """
+from base_caching import BaseCaching
+
+
 class LFUCache(BaseCaching):
+    """ LFUCache """
+
     def __init__(self):
         super().__init__()
+        self.usage = []
         self.frequency = {}
 
     def put(self, key, item):
+        """ put function """
         if key is None or item is None:
-            return
+            pass
+        else:
+            length = len(self.cache_data)
+            if length >= BaseCaching.MAX_ITEMS and key not in self.cache_data:
+                lfu = min(self.frequency.values())
+                lfu_keys = []
+                for k, v in self.frequency.items():
+                    if v == lfu:
+                        lfu_keys.append(k)
+                if len(lfu_keys) > 1:
+                    lru_lfu = {}
+                    for k in lfu_keys:
+                        lru_lfu[k] = self.usage.index(k)
+                    discard = min(lru_lfu.values())
+                    discard = self.usage[discard]
+                else:
+                    discard = lfu_keys[0]
 
-        if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
-            min_frequency = min(self.frequency.values())
-            keys_with_min_frequency = [key for key, value in self.frequency.items() if value == min_frequency]
-            oldest_key = min(keys_with_min_frequency, key=lambda x: self.cache_data[x][1])
-            print("DISCARD: {}".format(oldest_key))
-            self.cache_data.pop(oldest_key)
-            self.frequency.pop(oldest_key)
-
-        self.cache_data[key] = (item, time.time())
-        self.frequency[key] = self.frequency.get(key, 0) + 1
+                print("DISCARD: {}".format(discard))
+                del self.cache_data[discard]
+                del self.usage[self.usage.index(discard)]
+                del self.frequency[discard]
+            if key in self.frequency:
+                self.frequency[key] += 1
+            else:
+                self.frequency[key] = 1
+            if key in self.usage:
+                del self.usage[self.usage.index(key)]
+            self.usage.append(key)
+            self.cache_data[key] = item
 
     def get(self, key):
-        if key is None or key not in self.cache_data:
-            return None
-
-        self.frequency[key] += 1
-        value, _ = self.cache_data[key]
-        return value
+        """ get function """
+        if key is not None and key in self.cache_data.keys():
+            del self.usage[self.usage.index(key)]
+            self.usage.append(key)
+            self.frequency[key] += 1
+            return self.cache_data[key]
+        return None
