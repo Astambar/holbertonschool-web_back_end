@@ -16,26 +16,18 @@ connection = mysql.connector.connection
 MySQLConnection = connection.MySQLConnection
 
 
-def get_db():
-    """_summary_
-
-    Raises:
-        ValueError: _description_
-
-    Returns:
-        _type_: _description_
-    """
-    username = environ.get("PERSONAL_DATA_DB_USERNAME", "root")
-    password = environ.get("PERSONAL_DATA_DB_PASSWORD", "")
-    host = environ.get("PERSONAL_DATA_DB_HOST", "localhost")
-    database = environ.get("PERSONAL_DATA_DB_NAME")
-    if not database:
-        raise ValueError(
-            "Environment variable 'PERSONAL_DATA_DB_NAME' must be set")
-    return connection.MySQLConnection(user=username,
-                                      password=password,
-                                      host=host,
-                                      database=database)
+def get_db() -> connection.MySQLConnection:
+    """ get_db function """
+    username = environ.get('PERSONAL_DATA_DB_USERNAME', 'root')
+    password = environ.get('PERSONAL_DATA_DB_PASSWORD', '')
+    host = environ.get('PERSONAL_DATA_DB_HOST', 'localhost')
+    name = environ.get('PERSONAL_DATA_DB_NAME')
+    return connection.MySQLConnection(
+        user=username,
+        password=password,
+        host=host,
+        database=name
+    )
 
 
 def filter_datum(fields: List[str], redaction: str, message: str,
