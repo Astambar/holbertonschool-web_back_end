@@ -83,3 +83,27 @@ def get_logger() -> logging.Logger:
     handler.setFormatter(formatter)
     logger.addHandler(handler)
     return logger
+
+
+def main():
+    # Récupérer la base de données
+    db = get_db()
+    cursor = db.cursor()
+
+    # Exécuter la requête SQL
+    cursor.execute("SELECT * FROM users")
+    results = cursor.fetchall()
+
+    # Récupérer le logger
+    logger = get_logger()
+
+    # Pour chaque résultat, créer un message de journalisation
+    for result in results:
+        fields = PII_FIELDS + ("ip", "last_login", "user_agent")
+        values = [f"{field}={result[i]}" for i, field in enumerate(fields)]
+        log_message = "; ".join(values)
+        logger.info(log_message)
+
+
+if __name__ == '__main__':
+    main()
