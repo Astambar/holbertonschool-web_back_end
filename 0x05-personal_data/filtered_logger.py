@@ -32,10 +32,10 @@ def get_db():
     if not database:
         raise ValueError(
             "Environment variable 'PERSONAL_DATA_DB_NAME' must be set")
-    return MySQLConnection(user=username,
-                           password=password,
-                           host=host,
-                           database=database)
+    return connection.MySQLConnection(user=username,
+                                      password=password,
+                                      host=host,
+                                      database=database)
 
 
 def filter_datum(fields: List[str], redaction: str, message: str,
