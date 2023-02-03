@@ -7,12 +7,12 @@ Returns:
 import re
 import typing
 List = typing.List
-
+sub = re.sub
 
 def filter_datum(fields: List[str], redaction: str, message: str,
                  separator: str) -> str:
     """ filter_datum function """
     for field in fields:
-        message = re.sub(f'{field}=(.*?){separator}',
+        message = sub(f'{field}=(.*?){separator}',
                          f'{field}={redaction}{separator}', message)
     return message
