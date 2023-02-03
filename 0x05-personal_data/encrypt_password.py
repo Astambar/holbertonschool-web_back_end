@@ -6,12 +6,11 @@ Returns:
 """
 import bcrypt
 
-
-def hash_password(password: str) -> bytes:
-    """
-    Hash the password using bcrypt
-    :param password: password to hash
-    :return: hashed password as a byte string
-    """
-    hashed_password = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
+def hash_password(password):
+    salt = bcrypt.gensalt()
+    hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
     return hashed_password
+
+def is_valid(hashed_password, password):
+    password = password.encode('utf-8')
+    return bcrypt.checkpw(password, hashed_password)
