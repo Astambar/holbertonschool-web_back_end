@@ -12,6 +12,8 @@ import mysql.connector
 List = typing.List
 PII_FIELDS = ("name", "email", "phone", "ssn", "password")
 environ = os.environ
+connection = mysql.connector.connection
+MySQLConnection = connection.MySQLConnection
 
 
 def get_db():
@@ -30,10 +32,10 @@ def get_db():
     if not database:
         raise ValueError(
             "Environment variable 'PERSONAL_DATA_DB_NAME' must be set")
-    return mysql.connector.connect(user=username,
-                                   password=password,
-                                   host=host,
-                                   database=database)
+    return MySQLConnection(user=username,
+                           password=password,
+                           host=host,
+                           database=database)
 
 
 def filter_datum(fields: List[str], redaction: str, message: str,
