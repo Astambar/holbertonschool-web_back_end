@@ -11,6 +11,7 @@ import os
 import mysql.connector
 List = typing.List
 PII_FIELDS = ("name", "email", "phone", "ssn", "password")
+environ = os.environ
 
 
 def get_db():
@@ -22,10 +23,10 @@ def get_db():
     Returns:
         _type_: _description_
     """
-    username = os.environ.get("PERSONAL_DATA_DB_USERNAME", "root")
-    password = os.environ.get("PERSONAL_DATA_DB_PASSWORD", "")
-    host = os.environ.get("PERSONAL_DATA_DB_HOST", "localhost")
-    database = os.environ.get("PERSONAL_DATA_DB_NAME")
+    username = environ.get("PERSONAL_DATA_DB_USERNAME", "root")
+    password = environ.get("PERSONAL_DATA_DB_PASSWORD", "")
+    host = environ.get("PERSONAL_DATA_DB_HOST", "localhost")
+    database = environ.get("PERSONAL_DATA_DB_NAME")
     if not database:
         raise ValueError(
             "Environment variable 'PERSONAL_DATA_DB_NAME' must be set")
