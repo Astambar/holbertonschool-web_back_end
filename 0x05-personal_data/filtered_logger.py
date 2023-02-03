@@ -7,8 +7,32 @@ Returns:
 import logging
 import re
 import typing
+import os
+import mysql.connector
 List = typing.List
 PII_FIELDS = ("name", "email", "phone", "ssn", "password")
+
+
+def get_db():
+    """_summary_
+
+    Raises:
+        ValueError: _description_
+
+    Returns:
+        _type_: _description_
+    """
+    username = os.environ.get("PERSONAL_DATA_DB_USERNAME", "root")
+    password = os.environ.get("PERSONAL_DATA_DB_PASSWORD", "")
+    host = os.environ.get("PERSONAL_DATA_DB_HOST", "localhost")
+    database = os.environ.get("PERSONAL_DATA_DB_NAME")
+    if not database:
+        raise ValueError(
+            "Environment variable 'PERSONAL_DATA_DB_NAME' must be set")
+    return mysql.connector.connect(user=username,
+                                   password=password,
+                                   host=host,
+                                   database=database)
 
 
 def filter_datum(fields: List[str], redaction: str, message: str,
