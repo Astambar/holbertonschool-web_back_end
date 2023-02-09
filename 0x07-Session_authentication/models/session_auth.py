@@ -10,7 +10,10 @@ from os import getenv
 
 @app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
 def login():
-    """ login method
+    """_login method_
+
+    Returns:
+        _type_: _description_
     """
     email = request.form.get('email')
     password = request.form.get('password')
@@ -36,7 +39,10 @@ def login():
                  methods=['DELETE'],
                  strict_slashes=False)
 def logout():
-    """ logout method
+    """_login method_
+
+    Returns:
+        _type_: _description_
     """
     if auth.destroy_session(request):
         return jsonify({}), 200
