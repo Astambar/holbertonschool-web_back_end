@@ -6,7 +6,7 @@ from auth import Auth
 
 
 app = Flask(__name__)
-auth_manager = Auth()
+AUTH = Auth()
 
 
 @app.route('/', methods=['GET'], strict_slashes=False)
@@ -21,7 +21,7 @@ def users() -> str:
     email = request.form.get('email')
     password = request.form.get('password')
     try:
-        auth_manager.register_user(email, password)
+        AUTH.register_user(email, password)
         return jsonify({"email": email, "message": "user created"})
     except ValueError:
         return jsonify({"message": "email already registered"}), 400
@@ -32,8 +32,8 @@ def login() -> str:
     """Authenticate a user with email and password and create a session."""
     email = request.form.get('email')
     password = request.form.get('password')
-    if auth_manager.valid_login(email, password):
-        session_id = auth_manager.create_session(email)
+    if AUTH.valid_login(email, password):
+        session_id = AUTH.create_session(email)
         response = jsonify({"email": email, "message": "logged in"})
         response.set_cookie("session_id", session_id)
         return response
@@ -45,9 +45,9 @@ def logout() -> str:
     """Destroy a user session and log them out."""
     session_id = request.cookies.get('session_id')
     if session_id:
-        user = auth_manager.get_user_from_session_id(session_id)
+        user = AUTH.get_user_from_session_id(session_id)
         if user:
-            auth_manager.destroy_session(user.id)
+            AUTH.destroy_session(user.id)
             response = redirect("/")
             response.delete_cookie("session_id")
             return response
@@ -60,7 +60,7 @@ def profile() -> str:
     session_id = request.cookies.get("session_id", None)
     if session_id is None:
         abort(403)
-    user = auth_manager.get_user_from_session_id(session_id)
+    user = AUTH.get_user_from_session_id(session_id)
     if user is None:
         abort(403)
     message = {"email": user.email}
@@ -72,7 +72,7 @@ def get_reset_password_token() -> str:
     """Generate a reset password token for a user with the given email."""
     email = request.form.get('email')
     try:
-        token = auth_manager.get_reset_password_token(email)
+        token = AUTH.get_reset_password_token(email)
         return jsonify({"email": email, "reset_token": token})
     except ValueError:
         abort(403)
@@ -85,7 +85,7 @@ def update_password() -> str:
     reset_token = request.form.get('reset_token')
     new_password = request.form.get('new_password')
     try:
-        auth_manager.update_password(reset_token, new_password)
+        AUTH.update_password(reset_token, new_password)
         return jsonify({"email": email, "message": "Password updated"})
     except ValueError:
         abort(403)
