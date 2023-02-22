@@ -119,3 +119,7 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
         Tear down class
         """
         cls.get_patcher.stop()
+
+
+if __name__ == '__main__':
+    unittest.main()
