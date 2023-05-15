@@ -1,21 +1,22 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Tuple composé d'un str
-& carré d'un float ou int retourner en tant que float
+fonction  de fonction multiplicateur
+& nombre a multiplier
 """
 
-from typing import Tuple, Union
+from typing import Callable
 
 
-def to_kv(k: str, v: Union[int, float]) -> Tuple[str, float]:
-    """_summary_
+def make_multiplier(multiplier: float) -> Callable[[float], float]:
+    """_make_multiplier_
 
     Args:
-        k (_type_): _description_
-        float (_type_): _description_
+        multiplier (float): _description_
 
     Returns:
-        _tuple_: _description_
+        Callable[[float], float]: _description_
     """
-    return k, v * v
+    def multiply_by(n: float) -> float:
+        return n * multiplier
+    return multiply_by
