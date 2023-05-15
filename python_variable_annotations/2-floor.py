@@ -2,14 +2,14 @@
 # -*- coding: utf-8 -*-
 import math
 
-""" concatenation de chaîne """
+""" conversion float en int """
 
 
 def floor(n: float) -> int:
     """_floor_
 
     Args:
-        n (str): _description_
+        n (float): _description_
 
     Returns:
         int: _description_
