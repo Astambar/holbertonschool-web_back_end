@@ -8,7 +8,7 @@ Tuple composé d'un str
 from typing import Tuple, Union
 
 
-def to_kv(k: str, v: Union(int, float)) -> Tuple(str, float):
+def to_kv(k: str, v: Union(int, float)) -> Tuple[str, float]:
     """_summary_
 
     Args:
