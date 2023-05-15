@@ -6,7 +6,7 @@ import math
 
 
 def floor(n: float) -> int:
-    """_floor_
+    """_summary_
 
     Args:
         n (float): _description_
