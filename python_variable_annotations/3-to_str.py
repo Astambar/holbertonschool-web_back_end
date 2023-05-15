@@ -2,8 +2,6 @@
 # -*- coding: utf-8 -*-
 """ conversion float en str """
 
-import math
-
 
 def to_str(n: float) -> str:
     """_to_str_
