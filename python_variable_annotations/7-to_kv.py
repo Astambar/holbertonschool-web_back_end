@@ -5,10 +5,10 @@ Tuple composé d'un str
 & carré d'un float ou int retourner en tant que float
 """
 
-from typing import tuple, Union
+from typing import Tuple, Union
 
 
-def to_kv(k: str, v: Union(int, float)) -> tuple(str, float):
+def to_kv(k: str, v: Union(int, float)) -> Tuple(str, float):
     """_summary_
 
     Args:
