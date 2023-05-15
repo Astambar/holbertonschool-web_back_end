@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-import math
-
 """ conversion float en int """
+
+import math
 
 
 def floor(n: float) -> int:
