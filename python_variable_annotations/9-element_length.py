@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-fonction  de fonction multiplicateur
-& nombre a multiplier
+détermine Typing object Iterable
+& forme de sortie attendu Tuple Sequence , int
 """
 
 from typing import List, Tuple, Iterable, Sequence
