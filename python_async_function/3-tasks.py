@@ -12,5 +12,5 @@ def task_wait_random(max_delay: int) -> asyncio.Task:
        wait_random avec un délai maximum de max_delay.
     Retourne la tâche créée.
     """
-    # Créer et retourner la tâche en appelant directement la fonction wait_random
+    # Créer et retourne la tâche en appelant directement wait_random
     return asyncio.create_task(wait_random(max_delay))
