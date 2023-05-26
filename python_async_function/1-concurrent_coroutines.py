@@ -6,10 +6,12 @@ from typing import List
 # Importer la fonction wait_random du module 0-basic_async_syntax
 wait_random = __import__('0-basic_async_syntax').wait_random
 
+
 async def wait_n(n: int, max_delay: int) -> List[float]:
-    """ 
+    """
     Exécute la fonction wait_random n fois avec un délai maximum de max_delay.
-    Retourne une liste des temps d'attente pour chaque exécution de wait_random.
+    Retourne une liste des temps d'attente
+       pour chaque exécution de wait_random.
     """
     list = []
     for i in range(n):
