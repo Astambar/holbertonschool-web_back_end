@@ -17,11 +17,21 @@ class LFUCache(BaseCaching):
             return
 
         cache_length = len(self.cache_data)
-        if cache_length >= BaseCaching.MAX_ITEMS and key not in self.cache_data:
+        if (
+            cache_length >= BaseCaching.MAX_ITEMS
+            and key not in self.cache_data
+        ):
             min_frequency = min(self.key_frequencies.values())
-            min_frequency_keys = [cache_key for cache_key, frequency in self.key_frequencies.items() if frequency == min_frequency]
+            key_freq_items = self.key_frequencies.items()
+            min_frequency_keys = [
+                cache_key
+                for cache_key, frequency in key_freq_items
+                if frequency == min_frequency
+            ]
             if len(min_frequency_keys) > 1:
-                lru_lfu = {cache_key: self.usage_order.index(cache_key) for cache_key in min_frequency_keys}
+                lru_lfu = {}
+                for cache_key in min_frequency_keys:
+                    lru_lfu[cache_key] = self.usage_order.index(cache_key)
                 discard_index = min(lru_lfu.values())
                 discard_key = self.usage_order[discard_index]
             else:
