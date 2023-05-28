@@ -7,9 +7,10 @@ import csv
 from typing import List, Dict
 
 
-def index_range(page : int, page_size : int) -> tuple:
+def index_range(page: int, page_size: int) -> tuple:
     """
-    Cette fonction calcule les indices de début et de fin pour une page de données.
+    Cette fonction calcule les indices de début
+         et de fin pour une page de données.
     page: le numéro de la page
     page_size: le nombre d'éléments par page
     """
@@ -19,7 +20,9 @@ def index_range(page : int, page_size : int) -> tuple:
 
 
 class Server:
-    """Classe Server pour paginer une base de données de noms de bébés populaires"""
+    """
+    Classe Server pour paginer une base de données de noms de bébés populaires
+    """
     DATA_FILE = "Popular_Baby_Names.csv"
 
     def __init__(self):
@@ -54,7 +57,9 @@ class Server:
         return self.dataset()[index_debut:index_fin]
 
     def get_hyper_index(self, index: int = None, page_size: int = 10) -> dict:
-        """Renvoie un dictionnaire contenant des informations sur la pagination"""
+        """
+        Renvoie un dictionnaire contenant des informations sur la pagination
+        """
         assert isinstance(index, int) and index >= 0
         assert isinstance(page_size, int) and page_size > 0
 
