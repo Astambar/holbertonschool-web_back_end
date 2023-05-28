@@ -4,7 +4,8 @@
 
 def index_range(page, page_size) -> tuple:
     """
-    Cette fonction calcule les indices de début et de fin pour une page de données.
+    Cette fonction calcule les indices de début
+    et de fin pour une page de données.
     page: le numéro de la page
     page_size: le nombre d'éléments par page
     """
