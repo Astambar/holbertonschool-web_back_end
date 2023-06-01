@@ -7,7 +7,7 @@ import re
 import os
 import logging
 import mysql.connector
-from typing import List, TypeVar
+from typing import List
 
 connection = mysql.connector.connection
 
@@ -70,3 +70,29 @@ def get_db() -> connection.MySQLConnection:
         database=db_name
     )
     return cnx
+
+
+def main():
+    """
+    Fonction principale qui récupère toutes les lignes de la table `users`
+    et affiche chaque ligne sous un format filtré.
+    """
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute("SELECT * FROM users")
+    rows = cursor.fetchall()
+
+    logger = get_logger()
+
+    for row in rows:
+        row_str = "; ".join([f"{field}={value}" for field,
+                             value in zip(PII_FIELDS,
+                                          row)])
+        logger.info(row_str)
+
+    cursor.close()
+    db.close()
+
+
+if __name__ == "__main__":
+    main()
