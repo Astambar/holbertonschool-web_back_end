@@ -4,8 +4,10 @@
 """
 
 import re
+import os
 import logging
-from typing import List
+import mysql.connector
+from typing import List, TypeVar
 
 PII_FIELDS = ('name', 'email', 'phone', 'ssn', 'password')
 
@@ -50,3 +52,19 @@ def get_logger() -> logging.Logger:
     logger.addHandler(stream_handler)
 
     return logger
+
+
+def get_db() -> TypeVar('MySQLConnection'):
+    """Renvoie un connecteur à la base de données"""
+    username = os.environ.get('PERSONAL_DATA_DB_USERNAME', 'root')
+    password = os.environ.get('PERSONAL_DATA_DB_PASSWORD', '')
+    host = os.environ.get('PERSONAL_DATA_DB_HOST', 'localhost')
+    db_name = os.environ.get('PERSONAL_DATA_DB_NAME')
+
+    cnx = mysql.connector.connect(
+        user=username,
+        password=password,
+        host=host,
+        database=db_name
+    )
+    return cnx
