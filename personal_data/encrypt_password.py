@@ -19,6 +19,7 @@ def hash_password(password: str) -> bytes:
 
     return hashed
 
+
 def is_valid(hashed_password: bytes, password: str) -> bool:
     """
     Vérifie si un mot de passe correspond à un mot de passe haché.
