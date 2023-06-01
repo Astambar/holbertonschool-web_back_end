@@ -9,6 +9,8 @@ import logging
 import mysql.connector
 from typing import List, TypeVar
 
+connection = mysql.connector.connection
+
 PII_FIELDS = ('name', 'email', 'phone', 'ssn', 'password')
 
 
@@ -54,7 +56,7 @@ def get_logger() -> logging.Logger:
     return logger
 
 
-def get_db() -> TypeVar('mysql.connector.connection.MySQLConnection'):
+def get_db() -> connection.MySQLConnection:
     """Renvoie un connecteur à la base de données"""
     username = os.environ.get('PERSONAL_DATA_DB_USERNAME', 'root')
     password = os.environ.get('PERSONAL_DATA_DB_PASSWORD', '')
