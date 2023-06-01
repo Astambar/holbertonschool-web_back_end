@@ -18,3 +18,16 @@ def hash_password(password: str) -> bytes:
     hashed = bcrypt.hashpw(password.encode(), salt)
 
     return hashed
+
+def is_valid(hashed_password: bytes, password: str) -> bool:
+    """
+    Vérifie si un mot de passe correspond à un mot de passe haché.
+
+    :param hashed_password: Le mot de passe haché.
+    :type hashed_password: bytes
+    :param password: Le mot de passe à vérifier.
+    :type password: str
+    :return: True si le mot de passe correspond au mot de passe haché, False sinon.
+    :rtype: bool
+    """
+    return bcrypt.checkpw(password.encode(), hashed_password)
