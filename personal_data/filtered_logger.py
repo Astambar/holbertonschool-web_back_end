@@ -28,8 +28,10 @@ def filter_datum(fields: List[str],
     :return: une chaîne représentant le message de journal
                 avec les champs spécifiés obfusqués
     """
-    regex = separator.join(f'({field}=[^'+separator+']*)' for field in fields)
-    return re.sub(regex, redaction, message)
+    for field in fields:
+        message = re.sub(f'{field}=(.*?){separator}',
+                         f'{field}={redaction}{separator}', message)
+    return message
 
 
 class RedactingFormatter(logging.Formatter):
