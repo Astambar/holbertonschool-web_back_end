@@ -69,6 +69,7 @@ def Forbidden(error) -> str:
 
 
 if __name__ == "__main__":
+    app.debug = True  # Activate debug mode
     host = getenv("API_HOST", "0.0.0.0")
     port = int(getenv("API_PORT", "5000"))
     app.run(host=host, port=port)
