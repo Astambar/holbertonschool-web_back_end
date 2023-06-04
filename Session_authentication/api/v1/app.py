@@ -37,7 +37,13 @@ elif AUTH_TYPE == 'session_db_auth':
 
 @app.before_request
 def before_request() -> None:
-    """ before_request method
+    """Before request method.
+
+    This method is executed before each request to the API.
+    It handles the authentication logic based on the AUTH_TYPE.
+
+    Returns:
+        None
     """
     if auth is None:
         return
@@ -55,21 +61,39 @@ def before_request() -> None:
 
 @app.errorhandler(404)
 def not_found(error) -> str:
-    """ Not found handler
+    """Not found handler.
+
+    Args:
+        error: The error message.
+
+    Returns:
+        JSON response with the error message and status code 404.
     """
     return jsonify({"error": "Not found"}), 404
 
 
 @app.errorhandler(401)
 def Unauthorized(error) -> str:
-    """ Unauthorized handler
+    """Unauthorized handler.
+
+    Args:
+        error: The error message.
+
+    Returns:
+        JSON response with the error message and status code 401.
     """
     return jsonify({"error": "Unauthorized"}), 401
 
 
 @app.errorhandler(403)
 def Forbidden(error) -> str:
-    """ Forbidden handler
+    """Forbidden handler.
+
+    Args:
+        error: The error message.
+
+    Returns:
+        JSON response with the error message and status code 403.
     """
     return jsonify({"error": "Forbidden"}), 403
 
