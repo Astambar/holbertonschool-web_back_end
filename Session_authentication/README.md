@@ -1,4 +1,4 @@
-# Simple API
+# Basic_authentication
 
 Simple HTTP API for playing with `User` model.
 
