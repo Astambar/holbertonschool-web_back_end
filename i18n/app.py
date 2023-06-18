@@ -22,7 +22,8 @@ users = {
 @app.before_request
 def before_request():
     """
-    Before request handler to set the current user and current time in the global context.
+    Before request handler to set the current user
+       and current time in the global context.
     """
     g.user = get_user()
 
