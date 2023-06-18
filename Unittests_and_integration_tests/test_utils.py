@@ -11,8 +11,12 @@ class TestAccessNestedMap(unittest.TestCase):
 
     @parameterized.expand([
         ({"a": 1}, ["a"], 1),  # Cas simple avec une clé existante
-        ({"a": {"b": 2}}, ["a"], {"b": 2}),  # Cas avec un dictionnaire imbriqué
-        ({"a": {"b": 2}}, ["a", "b"], 2),  # Cas avec un chemin profond dans le dictionnaire
+        ({"a": {"b": 2}},
+         ["a"],
+         {"b": 2}),  # Cas avec un dictionnaire imbriqué
+        ({"a": {"b": 2}},
+         ["a", "b"],
+         2),  # Cas avec un chemin profond dans le dictionnaire
     ])
     def test_access_nested_map(self, nested_map, path, expected):
         """Teste la fonction access_nested_map"""
@@ -32,8 +36,10 @@ class TestGetJson(unittest.TestCase):
     """Classe de tests pour la fonction get_json"""
 
     @parameterized.expand([
-        ("http://example.com", {"payload": True}),  # Cas avec une URL valide et une réponse JSON
-        ("http://holberton.io", {"payload": False})  # Cas avec une autre URL et une réponse JSON différente
+        ("http://example.com",
+         {"payload": True}),  # Cas avec une URL valide et une réponse JSON
+        ("http://holberton.io",
+         {"payload": False})  # Cas avec une autre URL et réponse JSON distinct
     ])
     def test_get_json(self, test_url, test_payload):
         """Teste la fonction get_json"""

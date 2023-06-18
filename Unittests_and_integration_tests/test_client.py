@@ -55,8 +55,10 @@ class TestGithubOrgClient(unittest.TestCase):
             mocked_method.assert_called_once()
 
     @parameterized.expand([
-        ({"license": {"key": "my_license"}}, "my_license", True),  # Cas avec une licence correspondante
-        ({"license": {"key": "other_license"}}, "my_license", False)  # Cas avec une licence non correspondante
+        ({"license": {"key": "my_license"}},
+         "my_license", True),  # Cas avec une licence correspondante
+        ({"license": {"key": "other_license"}},
+         "my_license", False)  # Cas avec une licence non correspondante
     ])
     def test_has_license(self, repo, key, expectation):
         """Teste la méthode has_license"""
