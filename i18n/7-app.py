@@ -6,10 +6,10 @@ Main module for the Flask application.
 from flask import Flask, render_template, request, g
 from flask_babel import Babel
 
-app = Flask(__name__)
-babel = Babel()
+app: Flask = Flask(__name__)
+babel: Babel = Babel()
 
-users = {
+users: dict = {
     1: {"name": "Balou", "locale": "fr", "timezone": "Europe/Paris"},
     2: {"name": "Beyonce", "locale": "en", "timezone": "US/Central"},
     3: {"name": "Spock", "locale": "kg", "timezone": "Vulcan"},
@@ -18,7 +18,7 @@ users = {
 
 
 @app.before_request
-def before_request():
+def before_request() -> None:
     """
     Before request handler to set the current user in the global context.
     """
@@ -40,11 +40,11 @@ babel.init_app(app)
 
 
 @babel.localeselector
-def get_locale():
+def get_locale() -> str:
     """
     Locale selector function to determine the best language for the user.
     """
-    locale = request.args.get("locale")
+    locale: str = request.args.get("locale")
     if locale and locale in Config.LANGUAGES:
         return locale
 
@@ -61,11 +61,11 @@ def get_locale():
 
 
 @babel.timezoneselector
-def get_timezone():
+def get_timezone() -> str:
     """
     Timezone selector function to determine the best timezone for the user.
     """
-    timezone = request.args.get("timezone")
+    timezone: str = request.args.get("timezone")
     if timezone:
         return timezone
 
@@ -78,7 +78,7 @@ def get_timezone():
 
 
 @app.route("/", methods=["GET"])
-def index():
+def index() -> str:
     """
     Route handler for the home page.
     Renders the '7-index.html' template.
@@ -86,11 +86,11 @@ def index():
     return render_template("7-index.html")
 
 
-def get_user():
+def get_user() -> dict:
     """
     Get the current user based on the 'login_as' query parameter.
     """
-    user_id = request.args.get('login_as')
+    user_id: str = request.args.get('login_as')
     if user_id and int(user_id) in users:
         return users[int(user_id)]
     else:
