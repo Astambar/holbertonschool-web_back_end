@@ -1,3 +1,4 @@
+-- Write a SQL script that ranks country origins of bands, ordered by the number of (non-unique) fans
 SELECT band_name,
        CASE
            WHEN split IS NULL THEN YEAR(CURRENT_DATE()) - YEAR(formed)
