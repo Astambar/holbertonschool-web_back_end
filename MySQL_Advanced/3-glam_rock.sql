@@ -1,8 +1,8 @@
--- Sélectionne le nom du groupe et calcule la durée de vie en années
-SELECT band_name, 
-       (YEAR(split) - YEAR(formed)) AS lifespan
-FROM metal_bands
--- Filtre les groupes ayant le style principal "Glam rock"
-WHERE style LIKE '%Glam rock%'
--- Trie les groupes par ordre décroissant de durée de vie
+SELECT band_name,
+       CASE
+           WHEN split IS NULL THEN YEAR(CURRENT_DATE()) - YEAR(formed)
+           ELSE YEAR(split) - YEAR(formed)
+       END AS lifespan
+FROM bands
+WHERE main_style = 'Glam rock'
 ORDER BY lifespan DESC;
