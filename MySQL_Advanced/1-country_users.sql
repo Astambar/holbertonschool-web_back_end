@@ -1,5 +1,4 @@
 -- Sélectionne la base de données 'holberton'
-USE holberton;
 
 -- Crée la table 'users' avec les attributs spécifiés
 CREATE TABLE IF NOT EXISTS users (
