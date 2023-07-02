@@ -1,0 +1,40 @@
+- ./0-uniq_users.sql
+	Success: ./0-uniq_users.sql
+	Details:
+		Tested for: Insertion
+		Test Type: uniq_users
+		Test: 
+
+
+- ./0-uniq_users.sql
+	Success: ./0-uniq_users.sql
+	Details:
+		Tested for: Duplicate
+		Test Type: uniq_users
+		Test: 
+
+
+- ./0-uniq_users.sql
+	Success: ./0-uniq_users.sql
+	Details:
+		Tested for: Integrity Test
+		Test Type: uniq_users
+		Test: Test Uniq Users
+
+
+- 1-country_users.sql
+	Success: 1-country_users.sql
+	Details:
+		Tested for: Creation
+		Test Type: users
+		Test: 
+
+
+- ./1-country_users.sql
+	Success: ./1-country_users.sql
+	Details:
+		Tested for: Integrity Test
+		Test Type: country_users
+		Test: Test Country Users
+
+
