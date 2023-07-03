@@ -1,0 +1,1 @@
+Le script a créé ou utilisé avec succès la base de données my_db.

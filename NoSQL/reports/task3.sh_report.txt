@@ -1,0 +1,1 @@
+Le script liste correctement tous les documents de la collection school.

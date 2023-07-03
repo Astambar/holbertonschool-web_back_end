@@ -1,0 +1,2 @@
+Le script a réussi à trouver quelque chose.
+Le script liste correctement tous les documents avec name="Holberton school".

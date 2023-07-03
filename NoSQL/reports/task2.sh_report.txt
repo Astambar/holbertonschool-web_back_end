@@ -1,0 +1,1 @@
+Le script a inséré avec succès le document dans la collection school.

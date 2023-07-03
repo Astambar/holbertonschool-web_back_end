@@ -1,0 +1,16 @@
+MongoDB shell version v4.2.24
+connecting to: mongodb://127.0.0.1:27017/my_db?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("c5f6d56c-2b71-45f3-89cb-4035797bcab7") }
+MongoDB server version: 4.2.24
+{ "dropped" : "my_db", "ok" : 1 }
+MongoDB shell version v4.2.24
+connecting to: mongodb://127.0.0.1:27017/my_db?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("e0e49ac2-12fc-4211-8ab0-6176c814e317") }
+MongoDB server version: 4.2.24
+WriteResult({ "nInserted" : 1 })
+MongoDB shell version v4.2.24
+connecting to: mongodb://127.0.0.1:27017/my_db?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("521b892b-96dc-4dca-8ca7-dfc125304bf8") }
+MongoDB server version: 4.2.24
+WriteResult({ "nInserted" : 1 })
+Le script affiche correctement le nombre de documents.

@@ -1,0 +1,10 @@
+Le script 0-list_databases renvoie le résultat attendu :
+MongoDB shell version v4.2.24
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("6c87e276-2203-4b11-ab89-69fbd6070384") }
+MongoDB server version: 4.2.24
+admin   0.000GB
+config  0.000GB
+local   0.000GB
+my_db   0.000GB
+bye
