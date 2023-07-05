@@ -1,61 +1,57 @@
 #!/usr/bin/env python3
-"""
-102-log_stats.py - Script pour analyser les statistiques
-  des journaux dans une collection MongoDB.
-"""
+""" 12-log_stats.py """
 from pymongo import MongoClient
 
-# Liste des méthodes HTTP
-METHODS = ["GET", "POST", "PUT", "PATCH", "DELETE"]
 
-# Pipeline pour l'agrégation des adresses IP
-PIPE = [
-    {"$group": {"_id": "$ip", "count": {"$sum": 1}}},
-    {"$sort": {"count": -1}},
-    {"$limit": 10}
-]
+METHODS = ["GET", "POST", "PUT", "PATCH", "DELETE"]
 
 
 def log_stats(mongo_collection, option=None):
     """
-    Analyse des statistiques des journaux dans une collection MongoDB.
-    :param mongo_collection: Objet de collection MongoDB
-    :param option: Paramètre optionnel pour filtrer
-       les journaux par méthode HTTP
+    Affiche les statistiques des logs Nginx à partir d'une collection MongoDB.
+
+    Args:
+        mongo_collection (pymongo.collection.Collection): La collection MongoDB
+          contenant les logs Nginx.
+        option (str, optional): Option pour filtrer
+          les statistiques par méthode.
+          Par défaut, toutes les statistiques sont affichées.
+
+    Returns:
+        None
+
     """
     if option:
-        # Compter le nombre de journaux pour une méthode HTTP spécifique
-        value = mongo_collection.count_documents(
-                                                  {
-                                                      "method":
-                                                          {
-                                                              "$regex": option
-                                                          }
-                                                  }
-                                                 )
-        print(f"\tméthode {option}: {value}")
-        return
+        query = {"method": option}
+        count = mongo_collection.count_documents(query)
+        print(f"method {option}: {count}")
+    else:
+        total_logs = mongo_collection.count_documents({})
+        print(f"{total_logs} logs")
+        print("Methods:")
+        for method in METHODS:
+            count = mongo_collection.count_documents({"method": method})
+            print(f"\tmethod {method}: {count}")
+        status_check_count = mongo_collection.count_documents(
+                                                              {"method":
+                                                               "GET",
+                                                               "path":
+                                                               "/status"
+                                                               }
+                                                              )
+        print(f"{status_check_count} status check")
 
-    # Nombre total de journaux
-    total_logs = mongo_collection.count_documents({})
-    print(f"{total_logs} journaux")
-
-    print("Méthodes :")
-    for method in METHODS:
-        log_stats(mongo_collection, method)
-
-    # Compter le nombre de journaux de vérification de statut
-    status_check = mongo_collection.count_documents({"path": "/status"})
-    print(f"{status_check} vérifications de statut")
-
-    print("Adresses IP :")
-    for ip in mongo_collection.aggregate(PIPE):
-        print(f"\t{ip.get('_id')}: {ip.get('count')}")
+    print("IPs:")
+    pipeline = [
+        {"$group": {"_id": "$ip", "count": {"$sum": 1}}},
+        {"$sort": {"count": -1}},
+        {"$limit": 10}
+    ]
+    for ip in mongo_collection.aggregate(pipeline):
+        print(f"\t{ip['_id']}: {ip['count']}")
 
 
 if __name__ == "__main__":
-    # Connexion à la collection MongoDB
-    nginx_collection = MongoClient('mongodb://127.0.0.1:27017').logs.nginx
-
-    # Analyse des statistiques des journaux
-    log_stats(nginx_collection)
+    client = MongoClient('mongodb://127.0.0.1:27017')
+    collection = client.logs.nginx
+    log_stats(collection)
