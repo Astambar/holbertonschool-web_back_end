@@ -1,0 +1,2 @@
+Le script a correctement ajouté l'attribut "address" au document.
+Le document a été correctement mis à jour avec l'attribut "address".

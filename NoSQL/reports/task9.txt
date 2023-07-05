@@ -1,0 +1,5 @@
+L'insertion de l'école a réussi. ID du document inséré : 64a4680ccacf6aef1adb47e1
+Le document inséré existe dans la collection.
+Résultat: New school created: 64a4680ccacf6aef1adb47e1
+[64a4680a43ce6f1d4cbdc379] Another school 
+[64a4680ccacf6aef1adb47e1] UCSF 505 Parnassus Ave

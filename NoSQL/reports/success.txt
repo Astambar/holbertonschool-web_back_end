@@ -1,0 +1,50 @@
+Test: tasks/reset_data.sh
+=====================================
+
+Test: tasks/task1.sh
+=====================================
+Le script a créé ou utilisé avec succès la base de données my_db.
+
+Test: tasks/task2.sh
+=====================================
+Le script a inséré avec succès le document dans la collection school.
+
+Test: tasks/task3.sh
+=====================================
+Le script liste correctement tous les documents de la collection school.
+
+Test: tasks/task4.sh
+=====================================
+Le script a réussi à trouver quelque chose.
+Le script liste correctement tous les documents avec name="Holberton school".
+
+Test: tasks/task5.sh
+=====================================
+Le script affiche correctement le nombre de documents.
+
+Test: tasks/task6.sh
+=====================================
+Le script a correctement ajouté l'attribut "address" au document.
+Le document a été correctement mis à jour avec l'attribut "address".
+
+Test: tasks/task7.sh
+=====================================
+{
+	"acknowledged" : true,
+	"insertedId" : ObjectId("64a4680b9092f5892add9a98")
+}
+Le script 7-delete a supprimé le document avec name="Holberton school".
+
+Test: tasks/task8.sh
+=====================================
+Le script 8-main.py renvoie le résultat attendu :
+[64a4680a43ce6f1d4cbdc379] Another school
+
+Test: tasks/task9.sh
+=====================================
+L'insertion de l'école a réussi. ID du document inséré : 64a4680ccacf6aef1adb47e1
+Le document inséré existe dans la collection.
+Résultat: New school created: 64a4680ccacf6aef1adb47e1
+[64a4680a43ce6f1d4cbdc379] Another school 
+[64a4680ccacf6aef1adb47e1] UCSF 505 Parnassus Ave
+

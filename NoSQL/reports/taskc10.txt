@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "10-main.py", line 5, in <module>
+    update_topics = __import__('10-update_topics').update_topics
+ModuleNotFoundError: No module named '10-update_topics'
+Les informations de l'école n'ont pas été mises à jour.
+Résultat: 

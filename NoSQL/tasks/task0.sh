@@ -16,5 +16,6 @@ if [[ $result =~ $expected_pattern ]]; then
   exit 0  # Succès
 else
   echo "Le script 0-list_databases ne renvoie pas le résultat attendu."
+  echo "$result"
   exit 1  # Échec
 fi

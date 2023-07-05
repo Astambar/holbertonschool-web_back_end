@@ -1,1 +1,0 @@
-Le script n'a pas ajouté correctement l'attribut "address" au document.

@@ -3,11 +3,11 @@
 # Exécuter le script 10-main.py et stocker la sortie dans une variable
 result=$(python3 10-main.py)
 
-# Extraire l'ID du document de l'école à partir de la sortie
-school_id=$(grep -oP '\[\K[^]]+' <<< "$result")
-
+# Extraire le nom de l'école à partir de la sortie
+school_name=$(grep -oP '\[[^ ]+' <<< "$result" | tr -d '[]')
+echo $school_name
 # Vérifier si les informations de l'école ont été mises à jour correctement
-if [[ $(mongo my_db --quiet --eval "db.school.find({_id: ObjectId('$school_id'), topics: ['iOS']}).count()") == "1" ]]; then
+if [[ "$result" =~ "$school_name.*\['iOS'\]" ]]; then
   # Les informations de l'école ont été mises à jour
   echo "Les informations de l'école ont été mises à jour."
   echo "Résultat: $result"

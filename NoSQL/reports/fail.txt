@@ -1,0 +1,21 @@
+Test: tasks/task0.sh
+=====================================
+Le script 0-list_databases ne renvoie pas le résultat attendu.
+MongoDB shell version v4.2.24
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("0c287e5d-2411-4c58-9520-249923accd69") }
+MongoDB server version: 4.2.24
+admin   0.000GB
+config  0.000GB
+local   0.000GB
+bye
+
+Test: tasks/taskd10.sh
+=====================================
+64a4680a43ce6f1d4cbdc379 64a4680ccacf6aef1adb47e1 64a4680a43ce6f1d4cbdc379 64a4680ccacf6aef1adb47e1
+Les informations de l'école n'ont pas été mises à jour.
+Résultat: [64a4680a43ce6f1d4cbdc379] Another school 
+[64a4680ccacf6aef1adb47e1] UCSF 
+[64a4680a43ce6f1d4cbdc379] Another school 
+[64a4680ccacf6aef1adb47e1] UCSF 
+

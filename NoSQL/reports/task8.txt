@@ -1,0 +1,2 @@
+Le script 8-main.py renvoie le résultat attendu :
+[64a4680a43ce6f1d4cbdc379] Another school

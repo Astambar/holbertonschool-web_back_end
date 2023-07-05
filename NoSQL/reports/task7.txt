@@ -1,0 +1,5 @@
+{
+	"acknowledged" : true,
+	"insertedId" : ObjectId("64a4680b9092f5892add9a98")
+}
+Le script 7-delete a supprimé le document avec name="Holberton school".
