@@ -7,15 +7,17 @@ export default function createIteratorObject(report) {
   return {
     next() {
       if (currentIndex < employees.length) {
+        const value = employees[currentIndex];
+        currentIndex++;
         return {
-          value: employees[currentIndex++],
+          value: value,
           done: false,
         };
-      } else {
-        return {
-          done: true,
-        };
       }
+
+      return {
+        done: true,
+      };
     },
     [Symbol.iterator]() {
       return this;
