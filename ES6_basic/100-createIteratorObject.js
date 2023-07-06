@@ -1,6 +1,6 @@
 export default function createIteratorObject(report) {
-  let departments = Object.values(report.allEmployees);
-  let employees = departments.flatMap((department) => department);
+  const departments = Object.values(report.allEmployees);
+  const employees = departments.flatMap((department) => department);
 
   let currentIndex = 0;
 
