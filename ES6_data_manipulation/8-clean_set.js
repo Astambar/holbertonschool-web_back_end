@@ -2,17 +2,16 @@
 
 // La fonction cleanSet retourne une chaîne de caractères contenant toutes les valeurs
 // de l'ensemble qui commencent par une chaîne spécifique.
-function cleanSet(set, startString) {
-  if (!string || !string.length) return '';
+function cleanSet(set, string) {
   // Crée un tableau pour stocker les valeurs filtrées
   const filteredValues = [];
 
   // Parcourt chaque élément de l'ensemble
   for (const value of set) {
     // Vérifie si l'élément commence par la chaîne spécifiée
-    if (value.startsWith(startString)) {
+    if (value.startsWith(string)) {
       // Si oui, ajoute le reste de la chaîne (après startString) au tableau
-      filteredValues.push(value.slice(startString.length));
+      filteredValues.push(value.slice(string.length));
     }
   }
 
