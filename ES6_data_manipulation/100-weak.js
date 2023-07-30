@@ -9,7 +9,7 @@ export function queryAPI(endpoint) {
   if (weakMap.has(endpoint)) {
     // Récupère le nombre de requêtes pour ce endpoint depuis le WeakMap
     const requestCount = weakMap.get(endpoint);
-    
+
     // Incrémente le nombre de requêtes
     weakMap.set(endpoint, requestCount + 1);
 
