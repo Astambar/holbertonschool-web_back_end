@@ -6,7 +6,7 @@ function countStudents(filePath) {
   try {
     // Lecture synchrone du fichier CSV
     const data = fs.readFileSync(filePath, 'utf8');
-    
+
     // Séparation des lignes du fichier en un tableau
     const lines = data.split('\n').filter((line) => line.trim() !== ''); // Ignorer les lignes vides
 
@@ -23,13 +23,13 @@ function countStudents(filePath) {
 
     // Parcourir chaque ligne et compter les étudiants dans chaque domaine
     lines.forEach((line) => {
-      const [firstName, lastName, field] = line.split(',');
+      const [firstName, lastName, age, field] = line.split(',');
       if (field === 'CS') {
         csStudents++;
-        csStudentNames.push(firstName);
+        csStudentNames.push(firstName.trim()); // Utiliser trim() pour supprimer les espaces autour du nom
       } else if (field === 'SWE') {
         sweStudents++;
-        sweStudentNames.push(firstName);
+        sweStudentNames.push(firstName.trim()); // Utiliser trim() pour supprimer les espaces autour du nom
       }
     });
 
