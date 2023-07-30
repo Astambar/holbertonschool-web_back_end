@@ -1,53 +1,44 @@
-// 3-read_file_async.js
-
 const fs = require('fs');
 
-function countStudents(filePath) {
-  return new Promise((resolve, reject) => {
-    // Lecture asynchrone du fichier CSV
-    fs.readFile(filePath, 'utf8', (err, data) => {
-      if (err) {
-        // Gérer l'erreur si le fichier n'est pas disponible
-        reject(new Error('Cannot load the database'));
-      } else {
-        // Séparation des lignes du fichier en un tableau
-        const lines = data.split('\n').filter((line) => line.trim() !== ''); // Ignorer les lignes vides
+async function countStudents(filePath) {
+  try {
+    // Asynchronously read the file
+    const data = await fs.promises.readFile(filePath, 'utf8');
 
-        // Calcul du nombre total d'étudiants
-        const numberOfStudents = lines.length;
+    // Split the data into lines and filter out empty lines
+    const lines = data.split('\n').filter((line) => line.trim() !== '');
 
-        // Initialisation des compteurs pour chaque domaine
-        let csStudents = 0;
-        let sweStudents = 0;
+    // Initialize counters for each field
+    let csStudents = 0;
+    let sweStudents = 0;
 
-        // Tableaux pour stocker les prénoms des étudiants par domaine
-        const csStudentNames = [];
-        const sweStudentNames = [];
+    // Arrays to store first names for each field
+    const csStudentNames = [];
+    const sweStudentNames = [];
 
-        // Parcourir chaque ligne et compter les étudiants dans chaque domaine
-        lines.forEach((line) => {
-          const [firstName, lastName, field] = line.split(',');
-          if (field === 'CS') {
-            csStudents++;
-            csStudentNames.push(firstName);
-          } else if (field === 'SWE') {
-            sweStudents++;
-            sweStudentNames.push(firstName);
-          }
-        });
-
-        // Afficher le nombre total d'étudiants
-        console.log(`Number of students: ${numberOfStudents}`);
-
-        // Afficher le nombre d'étudiants dans chaque domaine et la liste des prénoms associée
-        console.log(`Number of students in CS: ${csStudents}. List: ${csStudentNames.join(', ')}`);
-        console.log(`Number of students in SWE: ${sweStudents}. List: ${sweStudentNames.join(', ')}`);
-
-        // Résoudre la promesse après avoir effectué les opérations
-        resolve();
+    // Loop through each line and count students in each field
+    lines.forEach((line) => {
+      const [firstName, lastName, age, field] = line.split(',');
+      if (field === 'CS') {
+        csStudents++;
+        csStudentNames.push(firstName.trim());
+      } else if (field === 'SWE') {
+        sweStudents++;
+        sweStudentNames.push(firstName.trim());
       }
     });
-  });
+
+    // Log the total number of students
+    console.log(`Number of students: ${lines.length -1}`);
+
+    // Log the number of students in each field and their first names
+    console.log(`Number of students in CS: ${csStudents}. List: ${csStudentNames.join(', ')}`);
+    console.log(`Number of students in SWE: ${sweStudents}. List: ${sweStudentNames.join(', ')}`);
+
+  } catch (error) {
+    // Throw an error if the database is not available
+    throw new Error('Cannot load the database');
+  }
 }
 
 module.exports = countStudents;
