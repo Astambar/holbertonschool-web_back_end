@@ -35,11 +35,11 @@ function handleNotFound(req, res) {
 }
 
 // Création du serveur HTTP en utilisant le module 'http'
-const app = http.createServer((req, res) => {
-  if (req.url === '/') {
-    handleRootRoute(req, res);
-  } else if (req.url === '/students') {
+const app = http.createServer(async (req, res) => {
+  if (req.url === '/students') {
     handleStudentsRoute(req, res);
+  } else if (req.url === '/') {
+    handleRootRoute(req, res);
   } else {
     handleNotFound(req, res);
   }
