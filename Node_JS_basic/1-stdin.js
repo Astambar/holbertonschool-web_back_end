@@ -1,24 +1,40 @@
-// 1-stdin.js
-
-// Fonction pour afficher le message et attendre l'entrée de l'utilisateur
-function askName() {
-    process.stdout.write('Welcome to Holberton School, what is your name?\n');
+// Affiche le message de bienvenue
+function displayWelcomeMessage() {
+    console.log('Welcome to Holberton School, what is your name?');
   }
   
-  // Événement pour lire l'entrée de l'utilisateur
-  process.stdin.on('data', (data) => {
-    const input = data.toString().trim();
+  // Gère l'entrée de l'utilisateur
+  function processUserInput() {
+    process.stdin.on('readable', () => {
+      const name = process.stdin.read();
+      if (name !== null) {
+        displayUserName(name);
+      }
+    });
+  }
   
-    // Si l'entrée est vide, affiche le message de fermeture et termine le programme
-    if (input === '') {
-      console.log('This important software is now closing');
-      process.exit();
-    }
+  // Affiche le nom de l'utilisateur
+  function displayUserName(name) {
+    process.stdout.write(`Your name is: ${name}`);
+  }
   
-    // Sinon, affiche le nom saisi par l'utilisateur
-    console.log(`Your name is: ${input}`);
+  // Affiche un message de fermeture et termine le programme
+  function closeProgram() {
+    process.stdout.write('This important software is now closing\n');
     process.exit();
-  });
+  }
+  
+  // Fonction principale pour demander le nom à l'utilisateur
+  function askName() {
+    // Étape 1 : Affiche le message de bienvenue
+    displayWelcomeMessage();
+  
+    // Étape 2 : Écoute les événements pour gérer l'entrée de l'utilisateur
+    processUserInput();
+  
+    // Étape 3 : Écoute l'événement 'end' pour gérer la fermeture de l'entrée standard
+    process.stdin.on('end', closeProgram);
+  }
   
   // Appelle la fonction pour poser la question dès que le programme démarre
   askName();
