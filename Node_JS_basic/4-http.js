@@ -8,7 +8,7 @@ const app = http.createServer((req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/plain' });
 
   // Répondre avec le message "Hello Holberton School!"
-  res.end('Hello Holberton School!\n');
+  res.end('Hello Holberton School!');
 });
 
 // Écouter le serveur sur le port 1245
