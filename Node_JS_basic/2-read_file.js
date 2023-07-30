@@ -34,7 +34,7 @@ function countStudents(filePath) {
     });
 
     // Afficher le nombre total d'étudiants
-    console.log(`Number of students: ${numberOfStudents}`);
+    console.log(`Number of students: ${numberOfStudents -1}`);
 
     // Afficher le nombre d'étudiants dans chaque domaine et la liste des prénoms associée
     console.log(`Number of students in CS: ${csStudents}. List: ${csStudentNames.join(', ')}`);
