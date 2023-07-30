@@ -1,44 +1,54 @@
 const http = require('http');
 const countStudents = require('./3-read_file_async');
 
-// Set the hostname and port for the server
 const hostname = '127.0.0.1';
 const port = 1245;
-
-// Get the database filename from the command line arguments
 const DB = process.argv[2];
 
-// Create the HTTP server
-const app = http.createServer((req, res) => {
-  // Set the status code and response header for all requests
+// Fonction pour gérer la route racine '/'
+function handleRootRoute(req, res) {
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/plain');
+  res.end('Hello Holberton School!');
+}
 
-  // Check the URL path to determine the response
-  if (req.url === '/') {
-    // Handle the root route '/'
-    res.end('Hello Holberton School!');
-  } else if (req.url === '/students') {
-    // Handle the '/students' route
+// Fonction pour gérer la route '/students'
+async function handleStudentsRoute(req, res) {
+  try {
+    const studentsData = await countStudents(DB);
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'text/plain');
     res.write('This is the list of our students\n');
-    // Call the countStudents function asynchronously
-    countStudents(DB).then((result) => {
-      // Handle the successful result by sending the data as the response
-      res.end(result.join('\n'));
-    }).catch((error) => {
-      // Handle any errors that occur during the countStudents function
-      // by sending the error message as the response
-      res.end(`${error.message}`);
-    });
+    res.end(studentsData.join('\n'));
+  } catch (error) {
+    res.statusCode = 500;
+    res.setHeader('Content-Type', 'text/plain');
+    res.end(`Cannot load the database: ${error.message}`);
+  }
+}
+
+// Fonction pour gérer les autres routes avec une réponse '404 Not Found'
+function handleNotFound(req, res) {
+  res.statusCode = 404;
+  res.setHeader('Content-Type', 'text/plain');
+  res.end('Not Found');
+}
+
+// Création du serveur HTTP en utilisant le module 'http'
+const app = http.createServer((req, res) => {
+  if (req.url === '/') {
+    handleRootRoute(req, res);
+  } else if (req.url === '/students') {
+    handleStudentsRoute(req, res);
   } else {
-    // Handle other routes with a 404 Not Found response
-    res.statusCode = 404;
-    res.end('Not Found');
+    handleNotFound(req, res);
   }
 });
 
-// Start the server and listen on the specified port and hostname
-app.listen(port, hostname);
+// Démarrer le serveur et écouter sur le port et l'adresse IP spécifiés
+app.listen(port, hostname, () => {
+  console.log('Server running at localhost:1245');
+});
 
-// Export the app variable to be used in other files
+// Exporter la variable 'app' pour pouvoir l'utiliser dans d'autres fichiers
 module.exports = app;
