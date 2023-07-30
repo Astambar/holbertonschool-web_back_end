@@ -9,7 +9,7 @@ function cleanSet(set, string) {
     // Parcourt chaque élément de l'ensemble
     for (const value of set) {
       // Vérifie si l'élément commence par la chaîne spécifiée
-      if (value.startsWith(string)) {
+      if (value && value.startsWith(string)) {
         // Si oui, ajoute le reste de la chaîne (après string) à filteredValues
         filteredValues += filteredValues.length === 0 ? value.slice(string.length) : '-' + value.slice(string.length);
       }
