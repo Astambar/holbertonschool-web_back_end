@@ -17,6 +17,7 @@ function askName() {
   
     // Sinon, affiche le nom saisi par l'utilisateur
     console.log(`Your name is: ${input}`);
+    process.exit();
   });
   
   // Appelle la fonction pour poser la question dès que le programme démarre
