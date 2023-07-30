@@ -6,7 +6,7 @@ function cleanSet(set, string) {
     if (!string || !string.length) return '';
     // Crée une chaîne de caractères pour stocker les valeurs filtrées
     let filteredValues = '';
-  
+
     // Parcourt chaque élément de l'ensemble
     for (const value of set) {
       // Vérifie si l'élément commence par la chaîne spécifiée
@@ -15,11 +15,9 @@ function cleanSet(set, string) {
         filteredValues += filteredValues.length === 0 ? value.replace(string, '') : value.replace(string, '-');
       }
     }
-  
+
     // Renvoie les valeurs filtrées sous forme d'une chaîne de caractères
     return filteredValues;
   }
-  
   // Exporte la fonction cleanSet pour pouvoir l'utiliser dans d'autres fichiers.
   export default cleanSet;
-  
