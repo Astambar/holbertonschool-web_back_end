@@ -3,6 +3,7 @@
 // La fonction cleanSet retourne une chaîne de caractères contenant toutes les valeurs
 // de l'ensemble qui commencent par une chaîne spécifique.
 function cleanSet(set, string) {
+    if (!string || !string.length) return '';
     // Crée une chaîne de caractères pour stocker les valeurs filtrées
     let filteredValues = '';
   
