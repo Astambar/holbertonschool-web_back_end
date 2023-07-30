@@ -11,7 +11,7 @@ function cleanSet(set, string) {
       // Vérifie si l'élément commence par la chaîne spécifiée
       if (value && value.startsWith(string)) {
         // Si oui, ajoute le reste de la chaîne (après string) à filteredValues
-        filteredValues += filteredValues.length === 0 ? value.slice(string.length) : '-' + value.slice(string.length);
+        filteredValues += filteredValues.length === 0 ? value.replace(string, '') : value.replace(string, '-');
       }
     }
   
