@@ -1,48 +1,34 @@
-// full_server/controllers/StudentsController.js
+import readDatabase from '../utils';
 
-const { readDatabase } = require('../utils');
-
-class StudentsController {
-  static getAllStudents(req, res) {
-    readDatabase('./database.csv')
-      .then(databaseObject => {
-        res.status(200).send('This is the list of our students\n' + formatDatabaseObject(databaseObject));
-      })
-      .catch(error => {
-        res.status(500).send(error.message);
+export default class StudentsController {
+  static getAllStudents(request, response, DB) {
+    readDatabase(DB).then((result) => {
+      const students = [];
+      students.push('This is the list of our students');
+      Object.keys(result).sort().forEach((key) => {
+        students.push(`Number of students in ${key}: ${result[key].length}. List: ${result[key].join(', ')}`);
       });
+      response.status(200);
+      response.send(students.join('\n'));
+    }).catch((error) => {
+      response.status(500);
+      response.send(error.message);
+    });
   }
 
-  static getAllStudentsByMajor(req, res) {
-    const major = req.params.major.toUpperCase();
-
+  static getAllStudentsByMajor(request, response, DB) {
+    const { major } = request.params;
     if (major !== 'CS' && major !== 'SWE') {
-      res.status(500).send('Major parameter must be CS or SWE');
+      response.status(500);
+      response.send('Major parameter must be CS or SWE');
     } else {
-      readDatabase('./database.csv')
-        .then(databaseObject => {
-          const studentsList = databaseObject[major] || [];
-          res.status(200).send('List: ' + studentsList.join(', '));
-        })
-        .catch(error => {
-          res.status(500).send(error.message);
-        });
+      readDatabase(DB).then((result) => {
+        response.status(200);
+        response.send(`List: ${result[major].join(', ')}`);
+      }).catch((error) => {
+        response.status(500);
+        response.send(error.message);
+      });
     }
   }
 }
-
-function formatDatabaseObject(databaseObject) {
-  let result = '';
-
-  // Add the count and list of students for each field to the result string
-  Object.keys(databaseObject).sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' })).forEach(field => {
-    const studentsCount = databaseObject[field].length;
-    const studentsList = databaseObject[field].join(', ');
-
-    result += `Number of students in ${field}: ${studentsCount}. List: ${studentsList}\n`;
-  });
-
-  return result;
-}
-
-module.exports = StudentsController;
