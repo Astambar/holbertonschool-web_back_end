@@ -1,5 +1,3 @@
-// full_server/routes/index.js
-
 import AppController from '../controllers/AppController';
 import StudentsController from '../controllers/StudentsController';
 
@@ -17,5 +15,3 @@ router.get('/students/:major', (req, res) => {
 });
 
 export default router;
-
-
