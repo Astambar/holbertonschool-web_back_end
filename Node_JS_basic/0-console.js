@@ -7,5 +7,5 @@ function displayMessage(message)
     console.log(message);
 }
 
-  // Export de la fonction pour qu'elle puisse être utilisée dans d'autres fichiers
-  module.exports = displayMessage;
+// Export de la fonction pour qu'elle puisse être utilisée dans d'autres fichiers
+module.exports = displayMessage;
