@@ -1,63 +1,44 @@
-// Importation du module HTTP requis pour créer un serveur
 const http = require('http');
-
-// Importation de la fonction countStudents depuis le fichier '3-read_file_async.js'
 const countStudents = require('./3-read_file_async');
 
-// Définition de l'adresse IP et du port sur lesquels le serveur va écouter
+// Set the hostname and port for the server
 const hostname = '127.0.0.1';
 const port = 1245;
 
-// Récupération du nom de la base de données depuis les arguments de ligne de commande
+// Get the database filename from the command line arguments
 const DB = process.argv[2];
 
-// Fonction pour gérer la route racine '/'
-function handleRootRoute(req, res) {
+// Create the HTTP server
+const app = http.createServer((req, res) => {
+  // Set the status code and response header for all requests
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello Holberton School!');
-}
 
-// Fonction pour gérer la route '/students'
-async function handleStudentsRoute(req, res) {
-  try {
-    // Appel de la fonction countStudents pour obtenir les données des étudiants depuis la base de données
-    const studentsData = await countStudents(DB);
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/plain');
-    res.write('This is the list of our students\n');
-    res.end(studentsData.join('\n')); // Envoi de la liste des étudiants au format texte avec un saut de ligne entre chaque nom
-  } catch (error) {
-    // En cas d'erreur lors de l'accès à la base de données, renvoyer une réponse d'erreur avec le code 500
-    res.statusCode = 500;
-    res.setHeader('Content-Type', 'text/plain');
-    res.end(`Cannot load the database: ${error.message}`);
-  }
-}
-
-// Fonction pour gérer les autres routes avec une réponse '404 Not Found'
-function handleNotFound(req, res) {
-  res.statusCode = 404;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Not Found');
-}
-
-// Création du serveur HTTP en utilisant le module 'http'
-const app = http.createServer((req, res) => {
-  // Vérification de l'URL de la requête pour déterminer quelle fonction de gestion de route utiliser
+  // Check the URL path to determine the response
   if (req.url === '/') {
-    handleRootRoute(req, res); // Gérer la route racine
+    // Handle the root route '/'
+    res.end('Hello Holberton School!');
   } else if (req.url === '/students') {
-    handleStudentsRoute(req, res); // Gérer la route '/students'
+    // Handle the '/students' route
+    res.write('This is the list of our students\n');
+    // Call the countStudents function asynchronously
+    countStudents(DB).then((result) => {
+      // Handle the successful result by sending the data as the response
+      res.end(result.join('\n'));
+    }).catch((error) => {
+      // Handle any errors that occur during the countStudents function
+      // by sending the error message as the response
+      res.end(`${error.message}`);
+    });
   } else {
-    handleNotFound(req, res); // Gérer les autres routes avec une réponse '404 Not Found'
+    // Handle other routes with a 404 Not Found response
+    res.statusCode = 404;
+    res.end('Not Found');
   }
 });
 
-// Démarrer le serveur et écouter sur le port et l'adresse IP spécifiés
-app.listen(port, hostname, () => {
-  console.log('Server running at localhost:1245');
-});
+// Start the server and listen on the specified port and hostname
+app.listen(port, hostname);
 
-// Exporter la variable 'app' pour pouvoir l'utiliser dans d'autres fichiers
+// Export the app variable to be used in other files
 module.exports = app;
